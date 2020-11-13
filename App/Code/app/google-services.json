@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "488661255198",
+    "firebase_url": "https://kibo-8c657.firebaseio.com",
+    "project_id": "kibo-8c657",
+    "storage_bucket": "kibo-8c657.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488661255198:android:9b3ba680280e39ab145a0f",
+        "android_client_info": {
+          "package_name": "com.calabuigla.kibo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488661255198-k3oboemacag3ia9ets1eaq7t9phpeejo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX0WxEpi2G1Jq3htkT3JMSWLfrXgMedZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488661255198-k3oboemacag3ia9ets1eaq7t9phpeejo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
