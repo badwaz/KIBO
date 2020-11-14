@@ -3,7 +3,7 @@ package com.example.kibo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
@@ -17,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initAuth(){
-        title = "MainPage"
+
         signUpButton.setOnClickListener {
             val dash = Intent(this,RegisterActivity::class.java)
             startActivity(dash)
@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showAlertJoin(){
-        var builder = AlertDialog.Builder(this)
+       var builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
         builder.setMessage("Email or Password are incorrect")
         builder.setPositiveButton("Accept",null)

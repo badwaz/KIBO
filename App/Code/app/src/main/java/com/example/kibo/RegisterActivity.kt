@@ -15,13 +15,16 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         initAuth()
-
     }
 
     private fun initAuth(){
-        title = "Registration"
+
         registerButton.setOnClickListener {
-            if (emailRegisterText.text.isNotEmpty() && passwordAgainRegisterText.text.isNotEmpty() && passwordRegisterText.text.isNotEmpty()){
+            var pass1 : String = passwordRegisterText.text.toString()
+            var pass2 : String = passwordAgainRegisterText.text.toString()
+            var result :Boolean = pass1.equals(pass2)
+
+            if (emailRegisterText.text.isNotEmpty() && passwordAgainRegisterText.text.isNotEmpty() && passwordRegisterText.text.isNotEmpty() && result){
 
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailRegisterText.text.toString(),passwordRegisterText.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
@@ -33,6 +36,9 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+        backToLogin.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun showAlertRegister(){
