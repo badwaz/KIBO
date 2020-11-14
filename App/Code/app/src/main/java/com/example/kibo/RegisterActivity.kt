@@ -3,33 +3,31 @@ package com.example.kibo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.PopupWindow
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.emailText
+import kotlinx.android.synthetic.main.activity_register.*
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_register)
 
         initAuth()
+
     }
 
     private fun initAuth(){
-        title = "MainPage"
-        signUpButton.setOnClickListener {
-            val dash = Intent(this,RegisterActivity::class.java)
-            startActivity(dash)
-        }
+        title = "Registration"
+        registerButton.setOnClickListener {
+            if (emailRegisterText.text.isNotEmpty() && passwordAgainRegisterText.text.isNotEmpty() && passwordRegisterText.text.isNotEmpty()){
 
-        joinButton.setOnClickListener {
-            if (emailText.text.isNotEmpty() && passwordText.text.isNotEmpty()){
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText.text.toString(),passwordText.text.toString()).addOnCompleteListener{
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailRegisterText.text.toString(),passwordRegisterText.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
                         showDashboard(it.result?.user?.email ?: "")
                     } else{
-                        showAlertJoin()
+                        showAlertRegister()
                     }
                 }
             }
@@ -37,16 +35,14 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun showAlertJoin(){
+    private fun showAlertRegister(){
         var builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("Email or Password are incorrect")
+        builder.setMessage("Error registering user, check your data")
         builder.setPositiveButton("Accept",null)
         builder.create().show()
     }
 
-    // Used when login has been made or when the user has successfully registered
-    // TODO: Create an animation to go to the next activity
     private fun showDashboard(email: String){
         val dash = Intent(this,DashboardActivity::class.java).apply {
             putExtra("email",email)
