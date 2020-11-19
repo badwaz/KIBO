@@ -1,4 +1,4 @@
 package com.example.kibo
 
-class RankingClass {
+data class RankingClass(var nickname: String? = null, var points: Int? = null) {
 }
