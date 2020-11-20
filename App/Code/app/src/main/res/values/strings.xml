@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KIBO</string>
+    <string name="shared_preferences">KiboPreferences</string>
+    <string name="background_input">KiboBackground</string>
 </resources>

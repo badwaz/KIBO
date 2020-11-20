@@ -1,11 +1,14 @@
 package com.example.kibo
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -14,6 +17,19 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         initAuth()
+        setBackgroundColor()
+    }
+
+    private fun setBackgroundColor(){
+        val sharedPrefString : SharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
+        val mytext: Int = sharedPrefString.getInt(getString(R.string.background_input), 0)
+
+        when(mytext){
+            0 -> loginBackground.setBackgroundResource(R.drawable.gradient_color)
+            1 -> loginBackground.setBackgroundResource(R.drawable.gradient_color_2)
+            2 -> loginBackground.setBackgroundResource(R.drawable.gradient_color_3)
+            3 -> loginBackground.setBackgroundResource(R.drawable.gradient_color_4)
+        }
     }
 
     private fun initAuth(){
