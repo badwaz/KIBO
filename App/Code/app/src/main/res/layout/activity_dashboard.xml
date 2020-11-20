@@ -63,7 +63,6 @@
                 android:layout_height="69dp"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="center"
-                android:text="calabuigla"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
@@ -212,6 +211,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="000"
                 android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textSize="42sp" />
 
             <TextView
@@ -221,6 +221,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="000"
                 android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textSize="42sp" />
 
             <TextView
@@ -230,6 +231,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="000"
                 android:textAlignment="center"
+                android:textColor="#FDFDFD"
                 android:textSize="42sp" />
 
         </LinearLayout>
