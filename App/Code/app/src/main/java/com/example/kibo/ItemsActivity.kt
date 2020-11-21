@@ -15,6 +15,8 @@ class ItemsActivity : AppCompatActivity() {
         setBackgroundColor()
     }
 
+
+
     private fun setBackgroundColor(){
         val sharedPrefString : SharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
         val mytext: Int = sharedPrefString.getInt(getString(R.string.background_input), 0)

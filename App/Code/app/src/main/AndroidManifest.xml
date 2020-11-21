@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MatchesActivity"></activity>
+        <activity android:name=".TheVoidActivity"></activity>
+        <activity android:name=".NewUserActivity" />
+        <activity android:name=".MatchesActivity" />
         <activity android:name=".ItemsActivity" />
         <activity android:name=".RankingActivity" />
         <activity android:name=".ContactActivity" />

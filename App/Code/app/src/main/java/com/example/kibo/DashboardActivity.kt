@@ -53,20 +53,26 @@ class DashboardActivity : AppCompatActivity() {
         Thread {
             val apiResponse = URL("https://raw.githubusercontent.com/badwaz/KiboAPPJsons/main/users.json").readText()
             val matchesResponse = URL("https://raw.githubusercontent.com/badwaz/KiboAPPJsons/main/matches.json").readText()
-            //val users = Gson().fromJson(apiResponse, UsersClass::class.java)
 
             runOnUiThread {
                 // From the email, get the id and nickname and fill the Dashboard
                 val userListType: Type = object : TypeToken<ArrayList<UsersClass?>?>() {}.type
                 val userArray: ArrayList<UsersClass> = Gson().fromJson(apiResponse, userListType)
 
+                var founded : Boolean = false
                 for (user in userArray) {
                     if(user.email == email){
                         myNickname = user.nickname.toString()
                         idUser = user.id!!
-
+                        founded = true
                         usernameText.text = myNickname
                     }
+                }
+
+                if(!founded){
+                    FirebaseAuth.getInstance().signOut()
+                    val dash = Intent(this,TheVoidActivity::class.java)
+                    startActivity(dash)
                 }
 
                 // Puntuación. Dependiendo de la puntuación

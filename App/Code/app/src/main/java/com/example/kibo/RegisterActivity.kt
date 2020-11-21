@@ -43,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailRegisterText.text.toString(),passwordRegisterText.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
-                        showDashboard(it.result?.user?.email ?: "")
+                        startActivity(Intent(this,TheVoidActivity::class.java))
                     } else{
                         showAlertRegister()
                     }
