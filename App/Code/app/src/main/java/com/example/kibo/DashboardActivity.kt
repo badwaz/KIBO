@@ -34,7 +34,13 @@ class DashboardActivity : AppCompatActivity() {
         color = sharedPrefString.getInt(getString(R.string.background_input), 0)
 
         setBackgroundColor()
+        newSession()
+        onClickListeners()
+        logOut()
+    }
 
+    // We test if the email from bundle is not null
+    private fun newSession(){
         val bundle = intent.extras
         val email : String? = bundle?.getString("email")
 
@@ -44,9 +50,6 @@ class DashboardActivity : AppCompatActivity() {
         } else{
             initDash(email.toString())
         }
-
-        onClickListeners()
-        logOut()
     }
 
     private fun initDash(email: String){
@@ -75,7 +78,7 @@ class DashboardActivity : AppCompatActivity() {
                     startActivity(dash)
                 }
 
-                // Puntuación. Dependiendo de la puntuación
+                // We get the points from the matches and use that for KDA.
                 val userListType3: Type = object : TypeToken<ArrayList<MatchClass?>?>() {}.type
                 val matchesArray: ArrayList<MatchClass> = Gson().fromJson(matchesResponse, userListType3)
 
@@ -94,33 +97,22 @@ class DashboardActivity : AppCompatActivity() {
                     }
                 }
 
-                // Put the ID on shared preferences
+                // If all is OK, we put the actual User ID into a Shared Preferences
                 val sharedPrefString : SharedPreferences = getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
                 val editor = sharedPrefString.edit()
                 editor.putInt(getString(R.string.id_saved),idUser)
                 editor.apply()
-                // End
 
                 totalPoints = userKills * (userWins + 10)
-                Log.d("TOTAL POINTS", totalPoints.toString())
-
                 killText.text = userKills.toString()
                 assisText.text = userAssists.toString()
                 deathText.text = userDeaths.toString()
 
-                if(totalPoints < 100){
-                    badgeRankedBackground.setBackgroundResource(R.drawable.bronze_badge)
-                }
-                if(totalPoints >= 100 && totalPoints < 750){
-                    badgeRankedBackground.setBackgroundResource(R.drawable.silver_badge)
-                }
-                if(totalPoints >= 750 && totalPoints < 1000){
-                    badgeRankedBackground.setBackgroundResource(R.drawable.gold_badge)
-                }
-                if(totalPoints >= 1000){
-                    badgeRankedBackground.setBackgroundResource(R.drawable.master_badge)
-                }
-
+                // Depending on the user's score, a wallpaper is assigned.
+                if(totalPoints < 100) badgeRankedBackground.setBackgroundResource(R.drawable.bronze_badge)
+                if(totalPoints >= 100 && totalPoints < 750) badgeRankedBackground.setBackgroundResource(R.drawable.silver_badge)
+                if(totalPoints >= 750 && totalPoints < 1000) badgeRankedBackground.setBackgroundResource(R.drawable.gold_badge)
+                if(totalPoints >= 1000) badgeRankedBackground.setBackgroundResource(R.drawable.master_badge)
 
             }
         }.start()
@@ -155,6 +147,7 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(Intent(this,ItemsActivity::class.java))
         }
 
+        // We change the color selected for the user and we keep that to a Shared Preference
         changeColor.setOnClickListener {
             val sharedPrefString : SharedPreferences = getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
             val editor = sharedPrefString.edit()
@@ -169,6 +162,7 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
+    // Session OFF and back to login
     private fun logOut(){
         logOutButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut()

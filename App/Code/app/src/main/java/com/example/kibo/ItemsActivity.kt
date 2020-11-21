@@ -13,7 +13,7 @@ import java.lang.reflect.Type
 import java.net.URL
 
 class ItemsActivity : AppCompatActivity(), ItemsFragment.OnListFragmentInteractionListener {
-    var myId : Int? = 0
+    var myId : Int = 0
     var userItemsArray: ArrayList<UsersItemsClass> = ArrayList()
     var userArray: ArrayList<UsersClass> = ArrayList()
     var itemsFromUser: ArrayList<ItemClass> = arrayListOf()
@@ -46,7 +46,6 @@ class ItemsActivity : AppCompatActivity(), ItemsFragment.OnListFragmentInteracti
                         }
                     }
                 }
-                // Le paso solo los items
                 val f: Fragment = ItemsFragment(itemsFromUser)
                 supportFragmentManager.beginTransaction().add(R.id.containerItem,f).commit()
             }
@@ -65,6 +64,7 @@ class ItemsActivity : AppCompatActivity(), ItemsFragment.OnListFragmentInteracti
             3 -> itemBackground.setBackgroundResource(R.drawable.gradient_color_4)
         }
     }
+
     override fun onListFragmentInteraction(item: ItemClass?){
         // Lo que queremos que haga cuando hacemos clic en uno de los items.
     }
