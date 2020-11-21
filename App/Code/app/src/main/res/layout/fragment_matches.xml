@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#00FFFFFF"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/containerColor"
+        android:layout_width="35dp"
+        android:layout_height="128dp"
+        android:background="#00FF0303"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/colorResult"
+            android:layout_width="match_parent"
+            android:layout_height="103dp"
+            android:background="#FF0000"
+            android:orientation="horizontal"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/vsText"
+            android:layout_width="71dp"
+            android:layout_height="102dp"
+            android:layout_weight="1"
+            android:background="#F4F4F4"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center"
+            android:text="vS"
+            android:textAlignment="center"
+            android:textSize="36sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="177dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/enemy1"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="#F4F4F4"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="username"
+            android:textAlignment="viewStart"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/enemy2"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="#F4F4F4"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="username"
+            android:textAlignment="viewStart"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/enemy3"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="#F4F4F4"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="username"
+            android:textAlignment="viewStart"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="106dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_number"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/roboto_black"
+            android:gravity="center"
+            android:text="KDA"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="000"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+</LinearLayout>

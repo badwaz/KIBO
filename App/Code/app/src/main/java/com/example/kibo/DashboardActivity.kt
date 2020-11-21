@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_login.*
 import java.lang.reflect.Type
 import java.net.URL
 
@@ -35,7 +36,7 @@ class DashboardActivity : AppCompatActivity() {
         setBackgroundColor()
 
         val bundle = intent.extras
-        val email:String? = bundle?.getString("email")
+        val email : String? = bundle?.getString("email")
 
         if(email.isNullOrBlank()){
             val dash = Intent(this,LoginActivity::class.java)
@@ -86,6 +87,13 @@ class DashboardActivity : AppCompatActivity() {
                         }
                     }
                 }
+
+                // Put the ID on shared preferences
+                val sharedPrefString : SharedPreferences = getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
+                val editor = sharedPrefString.edit()
+                editor.putInt(getString(R.string.id_saved),idUser)
+                editor.apply()
+                // End
 
                 totalPoints = userKills * (userWins + 10)
                 Log.d("TOTAL POINTS", totalPoints.toString())
