@@ -14,7 +14,6 @@ class ItemsFragment(var itemsFromUser: ArrayList<ItemClass>) : Fragment() {
 
     fun ItemsFragment(){}
     private var columnCount = 1
-    private var listener: ItemsFragment.OnListFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_items_list, container, false)
@@ -30,23 +29,4 @@ class ItemsFragment(var itemsFromUser: ArrayList<ItemClass>) : Fragment() {
         }
         return view
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: ItemClass?)
-    }
-
 }

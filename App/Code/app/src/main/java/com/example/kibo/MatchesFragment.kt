@@ -14,7 +14,6 @@ class MatchesFragment(var matchesToFragment: ArrayList<MatchClass>? = null, var 
 
     fun MatchesFragment(){}
     private var columnCount = 1
-    private var listener: OnListFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_matches_list, container, false)
@@ -25,27 +24,9 @@ class MatchesFragment(var matchesToFragment: ArrayList<MatchClass>? = null, var 
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = matchesToFragment?.let { MatchesViewAdapter(it, userArray, myId, listener) }
+                adapter = matchesToFragment?.let { MatchesViewAdapter(it, userArray, myId) }
             }
         }
         return view
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: MatchClass?)
     }
 }

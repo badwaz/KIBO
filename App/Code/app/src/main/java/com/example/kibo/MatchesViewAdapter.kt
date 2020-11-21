@@ -13,15 +13,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_matches.view.*
 
-class MatchesViewAdapter(private val values: ArrayList<MatchClass>, private val usersValues: ArrayList<UsersClass>, private val theId : Int, private val mListener: MatchesFragment.OnListFragmentInteractionListener?
+class MatchesViewAdapter(private val values: ArrayList<MatchClass>, private val usersValues: ArrayList<UsersClass>, private val theId : Int,
 ) : RecyclerView.Adapter<MatchesViewAdapter.ViewHolder>() {
-
-    private val mOnClickListener: View.OnClickListener
-
-    init {
-        mOnClickListener = View.OnClickListener { v-> val item = v.tag as MatchClass
-            mListener?.onListFragmentInteraction(item)}
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -94,7 +87,6 @@ class MatchesViewAdapter(private val values: ArrayList<MatchClass>, private val 
 
         with(holder.view){
             tag = item
-            setOnClickListener(mOnClickListener)
         }
     }
 

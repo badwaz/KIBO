@@ -7,15 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_ranking.view.*
 
-class RankingViewAdapter(private val values: List<RankingClass>, private val mListener: RankingFragment.OnListFragmentInteractionListener?
+class RankingViewAdapter(private val values: List<RankingClass>,
 ) : RecyclerView.Adapter<RankingViewAdapter.ViewHolder>() {
-
-    private val mOnClickListener: View.OnClickListener
-
-    init {
-        mOnClickListener = View.OnClickListener { v-> val item = v.tag as RankingClass
-            mListener?.onListFragmentInteraction(item)}
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,7 +23,6 @@ class RankingViewAdapter(private val values: List<RankingClass>, private val mLi
 
         with(holder.view){
             tag = item
-            setOnClickListener(mOnClickListener)
         }
     }
 

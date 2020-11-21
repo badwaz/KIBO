@@ -12,11 +12,10 @@ import kotlinx.android.synthetic.main.activity_matches.*
 import java.lang.reflect.Type
 import java.net.URL
 
-class MatchesActivity : AppCompatActivity(), MatchesFragment.OnListFragmentInteractionListener {
+class MatchesActivity : AppCompatActivity() {
     var matchesArray: ArrayList<MatchClass> = ArrayList()
     var userArray: ArrayList<UsersClass> = ArrayList()
     val matchesToFragment: ArrayList<MatchClass> = arrayListOf()
-
     var myId : Int? = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +64,4 @@ class MatchesActivity : AppCompatActivity(), MatchesFragment.OnListFragmentInter
         }
     }
 
-    override fun onListFragmentInteraction(item: MatchClass?){
-        // Lo que queremos que haga cuando hacemos clic en uno de los items.
-    }
 }

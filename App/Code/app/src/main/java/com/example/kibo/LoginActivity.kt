@@ -61,8 +61,6 @@ class LoginActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    // Used when login has been made or when the user has successfully registered
-    // TODO: Create an animation to go to the next activity
     private fun showDashboard(email: String){
         val dash = Intent(this,DashboardActivity::class.java).apply {
             putExtra("email",email)

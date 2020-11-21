@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_items.*
 import java.lang.reflect.Type
 import java.net.URL
 
-class ItemsActivity : AppCompatActivity(), ItemsFragment.OnListFragmentInteractionListener {
+class ItemsActivity : AppCompatActivity() {
     var myId : Int = 0
     var userItemsArray: ArrayList<UsersItemsClass> = ArrayList()
     var userArray: ArrayList<UsersClass> = ArrayList()
@@ -65,7 +65,4 @@ class ItemsActivity : AppCompatActivity(), ItemsFragment.OnListFragmentInteracti
         }
     }
 
-    override fun onListFragmentInteraction(item: ItemClass?){
-        // Lo que queremos que haga cuando hacemos clic en uno de los items.
-    }
 }

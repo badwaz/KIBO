@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_ranking.*
 import java.lang.reflect.Type
 import java.net.URL
 
-class RankingActivity : AppCompatActivity(), RankingFragment.OnListFragmentInteractionListener {
+class RankingActivity : AppCompatActivity() {
     val rankingArray: ArrayList<RankingClass> = arrayListOf()
     var matchesArray: ArrayList<MatchClass> = ArrayList()
     var userArray: ArrayList<UsersClass> = ArrayList()
@@ -36,26 +36,20 @@ class RankingActivity : AppCompatActivity(), RankingFragment.OnListFragmentInter
                 for(j in 0..matchesArray.size - 1){
                     for(i in 0..(matchesArray[j].usersMatch.size - 1))
                     {
-                        // Primero busco en el RANKING CLASS si existe una ID que concuerde con el user del match actual
+                        // Find in RANKING CLASS if exist and ID that matches the user of the current match
                         val found = rankingArray.find { it.id == matchesArray[j].usersMatch[i].user}
 
-                        // Si no es null, a ese found que nos devuelve, le sumamos los puntos a los que ya tiene
+                        // If it is not null, to that found that it returns, we add the points to the ones it already has
                         if(found != null){
                             found.points = found.points?.plus(matchesArray[j].usersMatch[i].kills!!)
                         }
                         else{
-                            // Si es null, significa que no está insertado en el ranking ese player, por lo que en el array de usuarios
-                            // ... buscamos el nombre de ese jugador por ID
+                            // If it is null, it means that this player is not inserted in the ranking, so in the array of users we find the name of that player
                             val f = userArray.find { it.id ==  matchesArray[j].usersMatch[i].user}
 
-                            // Si el find existe, habra encontrado al jugador del Match con la lista de usuarios
+                            // f the find exists, it will have found the match player with the user list
                             if(f != null){
-                                // Y añadiremos al ranking la ID, su nickname y la puntuación.
-                                rankingArray.add(
-                                    RankingClass(
-                                        f.id,
-                                        f.nickname,
-                                        matchesArray[j].usersMatch[i].kills
+                                rankingArray.add(RankingClass(f.id, f.nickname, matchesArray[j].usersMatch[i].kills
                                     )
                                 )
                             }
@@ -63,14 +57,13 @@ class RankingActivity : AppCompatActivity(), RankingFragment.OnListFragmentInter
                     }
                 }
 
-                var f: Fragment? = null
-                f = RankingFragment(rankingArray)
+                var f: Fragment = RankingFragment(rankingArray)
                 rankingArray.sortByDescending { it.points }
                 supportFragmentManager.beginTransaction().add(R.id.containerRank,f).commit()
-
             }
         }.start()
 
+        // We sort the array and put it on the desired fragment
         nameButton.setOnClickListener {
             rankingArray.sortBy { it.nickname }
             var tt: Fragment? = null
@@ -99,9 +92,5 @@ class RankingActivity : AppCompatActivity(), RankingFragment.OnListFragmentInter
             2 -> rankBackground.setBackgroundResource(R.drawable.gradient_color_3)
             3 -> rankBackground.setBackgroundResource(R.drawable.gradient_color_4)
         }
-    }
-
-    override fun onListFragmentInteraction(item: RankingClass?){
-        // Lo que queremos que haga cuando hacemos clic en uno de los items.
     }
 }
