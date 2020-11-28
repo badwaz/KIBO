@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
+import com.example.kibo.JsonAPI.matchesArrayAPI
+import com.example.kibo.JsonAPI.userArrayAPI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -54,16 +56,13 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun initDash(email: String){
         Thread {
-            val apiResponse = URL("https://raw.githubusercontent.com/badwaz/KiboAPPJsons/main/users.json").readText()
-            val matchesResponse = URL("https://raw.githubusercontent.com/badwaz/KiboAPPJsons/main/matches.json").readText()
+            JsonAPI.getUserData()
+            JsonAPI.getMatchData()
+            JsonAPI.getUserItemData()
 
             runOnUiThread {
-                // From the email, get the id and nickname and fill the Dashboard
-                val userListType: Type = object : TypeToken<ArrayList<UsersClass?>?>() {}.type
-                val userArray: ArrayList<UsersClass> = Gson().fromJson(apiResponse, userListType)
-
                 var founded : Boolean = false
-                for (user in userArray) {
+                for (user in userArrayAPI) {
                     if(user.email == email){
                         myNickname = user.nickname.toString()
                         idUser = user.id!!
@@ -78,19 +77,15 @@ class DashboardActivity : AppCompatActivity() {
                     startActivity(dash)
                 }
 
-                // We get the points from the matches and use that for KDA.
-                val userListType3: Type = object : TypeToken<ArrayList<MatchClass?>?>() {}.type
-                val matchesArray: ArrayList<MatchClass> = Gson().fromJson(matchesResponse, userListType3)
-
-                for(j in 0..matchesArray.size - 1){
-                    for(i in 0..(matchesArray[j].usersMatch.size - 1))
+                for(j in 0..matchesArrayAPI.size - 1){
+                    for(i in 0..(matchesArrayAPI[j].usersMatch.size - 1))
                     {
-                        if(matchesArray[j].usersMatch[i].user == idUser){
-                            userKills += matchesArray[j].usersMatch[i].kills!!
-                            userDeaths += matchesArray[j].usersMatch[i].deaths!!
-                            userAssists += matchesArray[j].usersMatch[i].assists!!
+                        if(matchesArrayAPI[j].usersMatch[i].user == idUser){
+                            userKills += matchesArrayAPI[j].usersMatch[i].kills!!
+                            userDeaths += matchesArrayAPI[j].usersMatch[i].deaths!!
+                            userAssists += matchesArrayAPI[j].usersMatch[i].assists!!
 
-                            if(matchesArray[j].usersMatch[i].team == matchesArray[j].idTeamWin){
+                            if(matchesArrayAPI[j].usersMatch[i].team == matchesArrayAPI[j].idTeamWin){
                                 userWins += 1
                             }
                         }

@@ -15,53 +15,39 @@ import java.net.URL
 
 class RankingActivity : AppCompatActivity() {
     val rankingArray: ArrayList<RankingClass> = arrayListOf()
-    var matchesArray: ArrayList<MatchClass> = ArrayList()
-    var userArray: ArrayList<UsersClass> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ranking)
         setBackgroundColor()
 
-        Thread {
-            val matchesResponse = URL("https://raw.githubusercontent.com/badwaz/KiboAPPJsons/main/matches.json").readText()
-            val userListType3: Type = object : TypeToken<ArrayList<MatchClass?>?>() {}.type
-            matchesArray = Gson().fromJson(matchesResponse, userListType3)
+        for(j in 0..JsonAPI.matchesArrayAPI.size - 1){
+            for(i in 0..(JsonAPI.matchesArrayAPI[j].usersMatch.size - 1))
+            {
+                // Find in RANKING CLASS if exist and ID that matches the user of the current match
+                val found = rankingArray.find { it.id == JsonAPI.matchesArrayAPI[j].usersMatch[i].user}
 
-            val apiResponse = URL("https://raw.githubusercontent.com/badwaz/KiboAPPJsons/main/users.json").readText()
-            val userListType: Type = object : TypeToken<ArrayList<UsersClass?>?>() {}.type
-            userArray = Gson().fromJson(apiResponse, userListType)
+                // If it is not null, to that found that it returns, we add the points to the ones it already has
+                if(found != null){
+                    found.points = found.points?.plus(JsonAPI.matchesArrayAPI[j].usersMatch[i].kills!!)
+                }
+                else{
+                    // If it is null, it means that this player is not inserted in the ranking, so in the array of users we find the name of that player
+                    val f = JsonAPI.userArrayAPI.find { it.id ==  JsonAPI.matchesArrayAPI[j].usersMatch[i].user}
 
-            runOnUiThread {
-                for(j in 0..matchesArray.size - 1){
-                    for(i in 0..(matchesArray[j].usersMatch.size - 1))
-                    {
-                        // Find in RANKING CLASS if exist and ID that matches the user of the current match
-                        val found = rankingArray.find { it.id == matchesArray[j].usersMatch[i].user}
-
-                        // If it is not null, to that found that it returns, we add the points to the ones it already has
-                        if(found != null){
-                            found.points = found.points?.plus(matchesArray[j].usersMatch[i].kills!!)
-                        }
-                        else{
-                            // If it is null, it means that this player is not inserted in the ranking, so in the array of users we find the name of that player
-                            val f = userArray.find { it.id ==  matchesArray[j].usersMatch[i].user}
-
-                            // f the find exists, it will have found the match player with the user list
-                            if(f != null){
-                                rankingArray.add(RankingClass(f.id, f.nickname, matchesArray[j].usersMatch[i].kills
-                                    )
-                                )
-                            }
-                        }
+                    // f the find exists, it will have found the match player with the user list
+                    if(f != null){
+                        rankingArray.add(RankingClass(f.id, f.nickname, JsonAPI.matchesArrayAPI[j].usersMatch[i].kills
+                            )
+                        )
                     }
                 }
-
-                var f: Fragment = RankingFragment(rankingArray)
-                rankingArray.sortByDescending { it.points }
-                supportFragmentManager.beginTransaction().add(R.id.containerRank,f).commit()
             }
-        }.start()
+        }
+
+        var f: Fragment = RankingFragment(rankingArray)
+        rankingArray.sortByDescending { it.points }
+        supportFragmentManager.beginTransaction().add(R.id.containerRank,f).commit()
 
         // We sort the array and put it on the desired fragment
         nameButton.setOnClickListener {

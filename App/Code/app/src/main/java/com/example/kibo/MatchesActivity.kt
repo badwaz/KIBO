@@ -13,8 +13,6 @@ import java.lang.reflect.Type
 import java.net.URL
 
 class MatchesActivity : AppCompatActivity() {
-    var matchesArray: ArrayList<MatchClass> = ArrayList()
-    var userArray: ArrayList<UsersClass> = ArrayList()
     val matchesToFragment: ArrayList<MatchClass> = arrayListOf()
     var myId : Int? = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,30 +24,17 @@ class MatchesActivity : AppCompatActivity() {
         val sharedPrefString : SharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
         myId = sharedPrefString.getInt(getString(R.string.id_saved), 0)
 
-        Thread {
-            val matchesResponse = URL("https://raw.githubusercontent.com/badwaz/KiboAPPJsons/main/matches.json").readText()
-            val userListType3: Type = object : TypeToken<ArrayList<MatchClass?>?>() {}.type
-            matchesArray = Gson().fromJson(matchesResponse, userListType3)
-
-            val apiResponse = URL("https://raw.githubusercontent.com/badwaz/KiboAPPJsons/main/users.json").readText()
-            val userListType: Type = object : TypeToken<ArrayList<UsersClass?>?>() {}.type
-            userArray = Gson().fromJson(apiResponse, userListType)
-
-            // Now we have to POPULATE a new Matches Class array with only the matches where user appears
-            runOnUiThread {
-                for(j in 0..matchesArray.size - 1){
-                    for(i in 0..(matchesArray[j].usersMatch.size - 1))
-                    {
-                        if (matchesArray[j].usersMatch[i].user == myId){
-                            matchesToFragment.add(matchesArray[j])
-                        }
-                    }
+        for(j in 0..JsonAPI.matchesArrayAPI.size - 1){
+            for(i in 0..(JsonAPI.matchesArrayAPI[j].usersMatch.size - 1))
+            {
+                if (JsonAPI.matchesArrayAPI[j].usersMatch[i].user == myId){
+                    matchesToFragment.add(JsonAPI.matchesArrayAPI[j])
                 }
-
-                val f: Fragment = MatchesFragment(matchesToFragment, userArray, myId!!)
-                supportFragmentManager.beginTransaction().add(R.id.containerMatch,f).commit()
             }
-        }.start()
+        }
+
+        val f: Fragment = MatchesFragment(matchesToFragment, JsonAPI.userArrayAPI, myId!!)
+        supportFragmentManager.beginTransaction().add(R.id.containerMatch,f).commit()
     }
 
     private fun setBackgroundColor(){
